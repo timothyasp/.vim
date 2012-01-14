@@ -1,0 +1,9 @@
+[submodule "syntastic"]
+   path = bundle/syntastic
+   url = git://github.com/scrooloose/syntastic.git
+[submodule "vim-powerline"]
+   path = bundle/vim-powerline
+   url = git://github.com/danielbeardsley/vim-powerline.git
+[submodule "vim-indent-guides"]
+   path = bundle/vim-indent-guides
+   url = git://github.com/nathanaelkane/vim-indent-guides.git
