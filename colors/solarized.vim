@@ -575,7 +575,7 @@ exe "hi! Type"           .s:fmt_none   .s:fg_yellow .s:bg_none
 "        Structure       struct, union, enum, etc.
 "        Typedef         A typedef
 
-exe "hi! Special"        .s:fmt_none   .s:fg_red    .s:bg_none
+exe "hi! Special"        .s:fmt_none   .s:fg_orange    .s:bg_none
 "       *Special         any special symbol
 "        SpecialChar     special character in a constant
 "        Tag             you can use CTRL-] on this
@@ -804,7 +804,8 @@ exe "hi! rubyDefine"     . s:fg_base1  .s:bg_back   .s:fmt_bold
 "hi! link rubyInstanceVariable  Identifier
 "hi! link rubyGlobalVariable    Identifier
 "hi! link rubyClassVariable     Identifier
-"hi! link rubyConstant          Type
+
+exe "hi! rubySymbol"     .s:fg_red    .s:bg_none   .s:fmt_none
 "}}}
 " haskell syntax highlighting"{{{
 " ---------------------------------------------------------------------
