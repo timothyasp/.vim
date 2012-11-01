@@ -1,12 +1,15 @@
 " Pathogen vim plugin loading - https://github.com/tpope/vim-pathogen
 call pathogen#infect()
+call pathogen#helptags()
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Author: Shawn Tice, with lots of help from the internet.
+" Author: Shawn Tice & Daniel Beardsley with lots of help from the internet.
+" Edited By: Timothy Asp to his liking
 
 set guioptions=am        " No toolbar in the gui; must be first in .vimrc.
-set guifont=Consolas:h9
-" encoding settings for gVim
+
+set guifont=Consolas:h9  " encoding settings for gVim
 set encoding=utf-8
 set fileencoding=utf-8
 
@@ -42,11 +45,17 @@ set textwidth=79          " Hard wrap at 79 characters.
 set virtualedit=block     " Allow the cursor to go where there's no char.
 set wildmode=longest,list " Tab completion works like bash.
 
+set keywordprg=pman       " ?
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set some configuration variables.
-
 let loaded_matchparen=0   " do automatic bracket highlighting.
 let mapleader=","         " Use , instead of \ for the map leader.
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Easy Motion Configuration
+let g:EasyMotion_leader_key = '<Leader>'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Formatting settings
@@ -70,10 +79,6 @@ cnoremap <C-B> <Left>
 cnoremap <Esc>b <S-Left>
 cnoremap <Esc>f <S-Right>
 cnoremap <C-U> <C-E><C-U>
-
-" Stupid shift mistakes.
-:command W w
-:command Q q
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Command mode cartography
@@ -100,18 +105,6 @@ noremap <Leader>s :Scratch<CR>
 set dictionary+=~/.vim/dictionary/english-freq
 set complete+=k
 
-" Insert <Tab> or complete identifier if the cursor is after a keyword
-" character.
-function TabOrComplete()
-    let col = col('.')-1
-    if !col || getline('.')[col-1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<C-N>"
-     endif
-endfunction
-inoremap <Tab> <C-R>=TabOrComplete()<CR>
-
 " Make C-s write the buffer and return to insert mode when applicable
 inoremap <C-s> <C-O>:w<CR>
 nnoremap <C-s> :w<CR>
@@ -119,17 +112,21 @@ nnoremap <C-s> :w<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Highlighting
 
+let g:solarized_termcolors=256
 syntax enable
+
+"==========================================
 " This should automatically be determined from the terminal type...
 set t_Co=16
+set background=dark
 colorscheme solarized
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"==========================================
 " Syntastic options : https://github.com/scrooloose/syntastic/
 
 let g:syntastic_check_on_open=1
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"==========================================
 " Restore the cursor when we can.
 
 function! RestoreCursor()
@@ -140,11 +137,13 @@ function! RestoreCursor()
 endfunction
 autocmd BufWinEnter * call RestoreCursor()
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"==========================================
 " My Customizations
+"==========================================
 
 set path=~/Code/**
 
+"==========================================
 " Reread configuration of Vim if .vimrc is saved {{{
 augroup VimConfig
   au!
@@ -154,41 +153,50 @@ augroup VimConfig
 augroup END
 " }}}
 
+"==========================================
 " Since I hardly ever need to type jk this is fast.
 imap jk <Esc>
 imap kj <Esc>
 
+"==========================================
 " Use hjkl in insert mode
 imap <C-h> <Left>
 imap <C-j> <Down>
 imap <C-k> <Up>
 imap <C-l> <Right>
 
+"==========================================
 " auto-insert second braces and parynthesis
 inoremap {<CR> {<CR>}<Esc>O
 inoremap ({<CR> ({<CR>});<Esc>O
 inoremap <<<<CR> <<<EOT<CR>EOT;<Esc>O<C-TAB><C-TAB><C-TAB>
 set cpoptions+=$ "show dollar sign at end of text to be changed
 
+"==========================================
 " Allow easy toggling of spaces / tabs mode
 nnoremap <C-t><C-t> :set invexpandtab<CR>
 
+"==========================================
 "Highlights lines that are greater than 80 columns
 "highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 "match OverLength '\%80v.\+'
+highlight ColorColumn ctermbg=DarkRed
 set colorcolumn=80
 
+"==========================================
 " Create simple toggles for line numbers, paste mode, and word wrap.
 nnoremap <C-N><C-N> :set invnumber<CR>
 nnoremap <C-p><C-p> :set invpaste<CR>
 nnoremap <C-w><C-w> :set invwrap<CR>
 
+"==========================================
 " Use C-hjkl in to change windows
 nnoremap <C-h> <C-w><Left>
 nnoremap <C-j> <C-w><Down>
 nnoremap <C-k> <C-w><Up>
 nnoremap <C-l> <C-w><Right>
 
+"==========================================
 " Folding stuff
 nnoremap <C-o> zo
 nnoremap <C-c> zc
@@ -196,14 +204,11 @@ nnoremap <C-O> zO
 nnoremap <C-O><C-O> zR
 set foldmethod=indent
 
-
-" Open file for class name under cursor
-nnoremap <C-o> yiw:find <C-R>".php<CR>
-
 "==========================================
 " vim-powerline: https://github.com/Lokaltog/vim-powerline
 let g:Powerline_theme="solarized"
-let g:Powerline_symbols="compatible"
+let g:Powerline_symbols="fancy"
+
 " show status line even where there is only one window
 set laststatus=2
 
@@ -214,4 +219,17 @@ set laststatus=2
 "hi IndentGuidesOdd  ctermbg=white
 "hi IndentGuidesEven ctermbg=lightgrey
 
-nnoremap <C-o>c yiw:find <C-r>".php<CR>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
+autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
+highlight EOLWS ctermbg=red guibg=red
+
+"==========================================
+" Set less syntax
+au BufNewFile,BufRead *.less set filetype=less
+
+"==========================================
+" Open file for class name under cursor
+" Thanks @dbeardsley
+nnoremap <C-i> yiw:find <C-R>".php<CR>
+
