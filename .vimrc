@@ -50,8 +50,6 @@ set keywordprg=pman       " ?
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set some configuration variables.
 let loaded_matchparen=0   " do automatic bracket highlighting.
-let mapleader=","         " Use , instead of \ for the map leader.
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Easy Motion Configuration
