@@ -225,6 +225,7 @@ highlight EOLWS ctermbg=red guibg=red
 "==========================================
 " Set less syntax
 au BufNewFile,BufRead *.less set filetype=less
+nnoremap ,m :w <BAR> !lessc % > %:t:r.css<CR><space>
 
 "==========================================
 " Open file for class name under cursor
