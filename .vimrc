@@ -1,11 +1,11 @@
-" Pathogen vim plugin loading - https://github.com/tpope/vim-pathogen
-call pathogen#infect()
-call pathogen#helptags()
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Author: Shawn Tice & Daniel Beardsley with lots of help from the internet.
 " Edited By: Timothy Asp to his liking
+
+" Calling all plugins!
+" Pathogen vim plugin loading - https://github.com/tpope/vim-pathogen
+call pathogen#infect()
+call pathogen#helptags()
 
 set guioptions=am        " No toolbar in the gui; must be first in .vimrc.
 
@@ -47,13 +47,29 @@ set wildmode=longest,list " Tab completion works like bash.
 
 set keywordprg=pman       " ?
 
+" Remap <Leader> to ,
+let mapleader=","
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set some configuration variables.
 let loaded_matchparen=0   " do automatic bracket highlighting.
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Easy Motion Configuration
-let g:EasyMotion_leader_key = '<Leader>'
+let g:EasyMotion_leader_key = ',m'
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CtrlP file search config https://github.com/kien/ctrlp.vim
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+" When invoked, unless a starting directory is specified,  CtrlP will set its local working directory according to this variable:
+" 'c' - the directory of the current file.
+" 'r' - the nearest ancestor that contains one of these directories or files: " .git .hg .svn .bzr _darcs
+" 'a' - like c, but only if the current working directory outside of CtrlP is " not a direct ancestor of the directory of the current file.
+" 0 or '' (empty string) - disable this feature.
+let g:ctrlp_working_path_mode = 'ra'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Formatting settings
@@ -66,17 +82,6 @@ let g:EasyMotion_leader_key = '<Leader>'
 " n: Auto-format lists, wrapping to text *after* the list bullet char.
 " l: Don't auto-wrap if a line is already longer than textwidth.
 set formatoptions+=ronl
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Command-line cartography
-
-" Command-line editing more like bash/emacs.
-cnoremap <C-A> <Home>
-cnoremap <C-F> <Right>
-cnoremap <C-B> <Left>
-cnoremap <Esc>b <S-Left>
-cnoremap <Esc>f <S-Right>
-cnoremap <C-U> <C-E><C-U>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Command mode cartography
@@ -195,11 +200,10 @@ nnoremap <C-k> <C-w><Up>
 nnoremap <C-l> <C-w><Right>
 
 "==========================================
-" Folding stuff
-nnoremap <C-o> zo
-nnoremap <C-c> zc
-nnoremap <C-O> zO
-nnoremap <C-O><C-O> zR
+" Folding
+
+" Use space for toggling folding
+nnoremap <Space> za 
 set foldmethod=indent
 
 "==========================================
