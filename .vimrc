@@ -236,3 +236,7 @@ nnoremap ,m :w <BAR> !lessc % > %:t:r.css<CR><space>
 " Thanks @dbeardsley
 nnoremap <C-i> yiw:find <C-R>".php<CR>
 
+"==========================================
+" Open a NERDTree automatically when vim starts up if no files are specified
+autocmd vimenter * if !argc() | NERDTree | endif
+
