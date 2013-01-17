@@ -18,6 +18,7 @@ filetype on              " Recognize syntax by file extension.
 filetype indent on       " Check for indent file.
 filetype plugin on       " Allow plugins to be loaded by file type.
 syntax on                " Syntax highlighting.
+let php_folding=1
 
 set autowrite             " Write before executing the 'make' command.
 set background=dark       " Background light, so foreground not bold.
@@ -47,12 +48,11 @@ set wildmode=longest,list " Tab completion works like bash.
 
 set keywordprg=pman       " ?
 
-" Remap <Leader> to ,
-let mapleader=","
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set some configuration variables.
 let loaded_matchparen=0   " do automatic bracket highlighting.
+let mapleader="," " Remap <Leader> to ,
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Easy Motion Configuration
@@ -232,11 +232,33 @@ au BufNewFile,BufRead *.less set filetype=less
 nnoremap ,m :w <BAR> !lessc % > %:t:r.css<CR><space>
 
 "==========================================
-" Open file for class name under cursor
-" Thanks @dbeardsley
-nnoremap <C-i> yiw:find <C-R>".php<CR>
+" Mouse Options
+
+" Enable mouse scrolling in all modes!
+set mouse=a
 
 "==========================================
-" Open a NERDTree automatically when vim starts up if no files are specified
-autocmd vimenter * if !argc() | NERDTree | endif
+" From: https://gist.github.com/3882918
+" Author: Marc Zych
+nnoremap <silent> <C-o> :call FindFile()<CR>
 
+function! FindFile()
+   " Get the word under cursor.
+   let cursorWord = expand("<cword>")
+   " Get the current file name and keep only the extension.
+   let currentFile = expand("%")
+   let extPos = stridx(currentFile, ".")
+
+   " Append an extension only if the current file has an extension.
+   if extPos != -1
+      let extension = strpart(currentFile, extPos)
+   else
+      let extension = ""
+   endif
+
+   " Construct the file name.
+   let fileName = cursorWord.extension
+
+   " Open the file in the current buffer.
+   execute "find ".fileName
+endfunction
