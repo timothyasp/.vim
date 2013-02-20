@@ -23,7 +23,12 @@ let php_folding=1
 set autowrite             " Write before executing the 'make' command.
 set background=dark       " Background light, so foreground not bold.
 set backspace=2           " Allow <BS> to go past last insert.
+
 set expandtab             " Expand tabs with spaces.
+set shiftwidth=3          " >> and << shift 3 spaces.
+set softtabstop=3         " See spaces as tabs.
+set tabstop=3             " <Tab> move three characters.
+
 set nofoldenable          " Disable folds; toggle with zi.
 set gdefault              " Assume :s uses /g.
 set ignorecase            " Ignore case in regular expressions
@@ -35,18 +40,17 @@ set nowrap                " Don't soft wrap.
 set number                " Display line numbers.
 set ruler                 " Display row, column and % of document.
 set scrolloff=6           " Keep min of 6 lines above/below cursor.
-set shiftwidth=3          " >> and << shift 3 spaces.
 set showcmd               " Show partial commands in the status line.
 set showmatch             " Show matching () {} etc..
 set showmode              " Show current mode.
 set smartcase             " Searches are case-sensitive if caps used.
-set softtabstop=3         " See spaces as tabs.
-set tabstop=3             " <Tab> move three characters.
 set textwidth=79          " Hard wrap at 79 characters.
 set virtualedit=block     " Allow the cursor to go where there's no char.
 set wildmode=longest,list " Tab completion works like bash.
 
 set keywordprg=pman       " ?
+
+au BufNewFile,BufRead *.phtml set filetype=php
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -204,6 +208,10 @@ nnoremap <C-l> <C-w><Right>
 
 " Use space for toggling folding
 nnoremap <Space> za 
+nnoremap <C-o> zo
+nnoremap <C-c> zc
+nnoremap <C-O> zO
+nnoremap <C-O><C-O> zR
 set foldmethod=indent
 
 "==========================================
@@ -262,3 +270,5 @@ function! FindFile()
    " Open the file in the current buffer.
    execute "find ".fileName
 endfunction
+
+
