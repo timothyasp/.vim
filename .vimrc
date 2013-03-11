@@ -4,7 +4,7 @@
 
 " Calling all plugins!
 " Pathogen vim plugin loading - https://github.com/tpope/vim-pathogen
-call pathogen#infect()
+call pathogen#infect('bundle/{}', '~/.dotfiles/vim/bundle/{}')
 call pathogen#helptags()
 
 set guioptions=am        " No toolbar in the gui; must be first in .vimrc.
