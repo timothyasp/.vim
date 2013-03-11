@@ -1,9 +1,0 @@
-[submodule "syntastic"]
-   path = bundle/syntastic
-   url = git://github.com/scrooloose/syntastic.git
-[submodule "bundle/vim-ruby"]
-	path = bundle/vim-ruby
-	url = git://github.com/vim-ruby/vim-ruby.git
-[submodule "bundle/vimwiki"]
-	path = bundle/vimwiki
-	url = git://github.com/vim-scripts/vimwiki.git
