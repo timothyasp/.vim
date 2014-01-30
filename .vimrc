@@ -238,6 +238,8 @@ highlight EOLWS ctermbg=red guibg=red
 " Set less syntax
 au BufNewFile,BufRead *.less set filetype=less
 nnoremap ,m :w <BAR> !lessc % > %:t:r.css<CR><space>
+" Hide csslint options
+let g:syntastic_csslint_options = "--warnings=none"
 
 "==========================================
 " Mouse Options
