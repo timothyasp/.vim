@@ -1,24 +1,25 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Author: Shawn Tice & Daniel Beardsley with lots of help from the internet.
-" Edited By: Timothy Asp to his liking
-
 " Calling all plugins!
 " Pathogen vim plugin loading - https://github.com/tpope/vim-pathogen
+"
 call pathogen#infect('bundle/{}', '~/.dotfiles/vim/bundle/{}')
 call pathogen#helptags()
 
-set guioptions=am        " No toolbar in the gui; must be first in .vimrc.
+set guioptions=am         " No toolbar in the gui; must be first in .vimrc.
+behave xterm
 
-set guifont=Consolas:h9  " encoding settings for gVim
+set guifont=Consolas:h9   " encoding settings for gVim
 set encoding=utf-8
 set fileencoding=utf-8
 
-set nocompatible         " No compatibility with vi.
-filetype on              " Recognize syntax by file extension.
-filetype indent on       " Check for indent file.
-filetype plugin on       " Allow plugins to be loaded by file type.
-syntax on                " Syntax highlighting.
+set nocompatible          " No compatibility with vi.
+filetype on               " Recognize syntax by file extension.
+filetype indent on        " Check for indent file.
+filetype plugin on        " Allow plugins to be loaded by file type.
+syntax on                 " Syntax highlighting.
 let php_folding=1
+
+set ai                    " Auto indent
+set si                    " smart indenting
 
 set autowrite             " Write before executing the 'make' command.
 set background=dark       " Background light, so foreground not bold.
@@ -52,7 +53,6 @@ set keywordprg=pman       " ?
 
 au BufNewFile,BufRead *.phtml set filetype=php
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set some configuration variables.
 let loaded_matchparen=0   " do automatic bracket highlighting.
@@ -85,13 +85,16 @@ let g:ctrlp_working_path_mode = 'ra'
 " o: Insert comment leader after hitting 'o' or 'O' in command mode.
 " n: Auto-format lists, wrapping to text *after* the list bullet char.
 " l: Don't auto-wrap if a line is already longer than textwidth.
-set formatoptions+=ronl
+set formatoptions+=ronlq
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Command mode cartography
 
 " Make Q reformat text.
 noremap Q gq
+
+" Set autoformat to <Leader> f
+noremap <Leader>f :Autoformat<CR><CR>
 
 " Toggle paste mode.
 noremap <Leader>p :set paste!<CR>
@@ -124,7 +127,7 @@ syntax enable
 
 "==========================================
 " This should automatically be determined from the terminal type...
-set t_Co=16
+set t_Co=256
 set background=dark
 colorscheme solarized
 
@@ -159,11 +162,6 @@ augroup VimConfig
   autocmd BufWritePost vimrc          so ~/.vimrc
 augroup END
 " }}}
-
-"==========================================
-" Since I hardly ever need to type jk this is fast.
-imap jk <Esc>
-imap kj <Esc>
 
 "==========================================
 " Use hjkl in insert mode
@@ -204,17 +202,6 @@ nnoremap <C-k> <C-w><Up>
 nnoremap <C-l> <C-w><Right>
 
 "==========================================
-" Folding
-
-" Use space for toggling folding
-nnoremap <Space> za 
-nnoremap <C-o> zo
-nnoremap <C-c> zc
-nnoremap <C-O> zO
-nnoremap <C-O><C-O> zR
-set foldmethod=indent
-
-"==========================================
 " vim-powerline: https://github.com/Lokaltog/vim-powerline
 let g:Powerline_theme="solarized"
 let g:Powerline_symbols="fancy"
@@ -236,8 +223,8 @@ highlight EOLWS ctermbg=red guibg=red
 
 "==========================================
 " Set less syntax
-au BufNewFile,BufRead *.less set filetype=less
-nnoremap ,m :w <BAR> !lessc % > %:t:r.css<CR><space>
+nnoremap <Leader>m :w <BAR> !lessc % > %:t:r.css<CR><space>
+
 " Hide csslint options
 let g:syntastic_csslint_options = "--warnings=none"
 
@@ -246,6 +233,12 @@ let g:syntastic_csslint_options = "--warnings=none"
 
 " Enable mouse scrolling in all modes!
 set mouse=a
+
+"==========================================
+" Splitjoin config
+
+nmap sj :SplitjoinSplit<CR>
+nmap sk :SplitjoinJoin<CR>
 
 "==========================================
 " From: https://gist.github.com/3882918
@@ -273,4 +266,13 @@ function! FindFile()
    execute "find ".fileName
 endfunction
 
+
+"============================================
+" PDV PHP Documentor setup
+" 
+let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv/templates_snip"
+nnoremap <buffer> <C-i> :call pdv#DocumentWithSnip()<CR>
+
+
+autocmd FileType phtml,less EmmetInstall
 
