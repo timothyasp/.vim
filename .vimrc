@@ -58,6 +58,20 @@ set keywordprg=pman       " ?
 au BufNewFile,BufRead *.phtml set filetype=php
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remove all trailing whitespace!
+"
+fun! <SID>StripTrailingWhitespaces()
+   let l = line(".")
+   let c = col(".")
+   %s/\s\+$//e
+   call cursor(l, c)
+endfun
+
+autocmd FileType * autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set some configuration variables.
 let loaded_matchparen=0   " do automatic bracket highlighting.
 let mapleader="," " Remap <Leader> to ,
@@ -214,7 +228,7 @@ let g:Powerline_symbols="fancy"
 set laststatus=2
 
 "==========================================
-" vim-indent-guides : 
+" vim-indent-guides :
 "hi IndentGuidesOdd  ctermbg=black
 "hi IndentGuidesEven ctermbg=darkgrey
 "hi IndentGuidesOdd  ctermbg=white
@@ -273,7 +287,7 @@ endfunction
 
 "============================================
 " PDV PHP Documentor setup
-" 
+"
 let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv/templates_snip"
 nnoremap <buffer> <C-i> :call pdv#DocumentWithSnip()<CR>
 
