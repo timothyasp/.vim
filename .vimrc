@@ -21,6 +21,10 @@ let php_folding=1
 set ai                    " Auto indent
 set si                    " smart indenting
 
+set nowritebackup
+set nobackup
+set noswapfile
+
 set autowrite             " Write before executing the 'make' command.
 set background=dark       " Background light, so foreground not bold.
 set backspace=2           " Allow <BS> to go past last insert.
